@@ -1,0 +1,9 @@
+FROM node:lts-alpine
+
+WORKDIR /service
+
+COPY . .
+
+RUN npm ci
+
+CMD [ "npm", "start" ]
