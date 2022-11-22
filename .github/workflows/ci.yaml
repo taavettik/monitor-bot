@@ -29,4 +29,4 @@ jobs:
           context: ./server
           file: ./server/Dockerfile.build
           push: true
-          tags: ghcr.io/monitor-bot:dev
+          tags: ghcr.io/taavettik/monitor-bot:dev
