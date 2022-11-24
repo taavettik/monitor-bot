@@ -28,23 +28,27 @@ if (!namespaceName) {
   throw new Error(`Environment variable PROJECT_NAMESPACE not set`);
 }
 
-for (const secret in secrets) {
-  const value = process.env[secret];
-
-  if (!value) {
-    console.warn(`Warning: value for secret ${secret} not found`);
-    continue;
-  }
-
-  const secretName = secrets[secret];
-
-  try {
-    execute(`kubectl create secret generic ${secretName} -n ${namespaceName}`)
-  } catch {}
-
-  execute(`kubectl patch secret ${secretName} -n ${namespaceName} -p '${JSON.stringify({
-    data: {
-      secret: Buffer.from(value).toString('base64'),
+async function main() {
+  for (const secret in secrets) {
+    const value = process.env[secret];
+  
+    if (!value) {
+      console.warn(`Warning: value for secret ${secret} not found`);
+      continue;
     }
-  })}'`);
+  
+    const secretName = secrets[secret];
+  
+    try {
+      await execute(`kubectl create secret generic ${secretName} -n ${namespaceName}`)
+    } catch {}
+  
+    await execute(`kubectl patch secret ${secretName} -n ${namespaceName} -p '${JSON.stringify({
+      data: {
+        secret: Buffer.from(value).toString('base64'),
+      }
+    })}'`);
+  }
 }
+
+main();
