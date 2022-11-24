@@ -42,3 +42,11 @@ jobs:
         env:
           KUBERNETES_CONFIG: ${{ secrets.KUBERNETES_CONFIG }}
       - run: terraform init && terraform apply -auto-approve
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: node scripts/deploy-secrets.js

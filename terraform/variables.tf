@@ -5,3 +5,8 @@ variable "project_env" {
 variable "project_name" {
   type = string
 }
+
+variable "secrets" {
+  type = list(string)
+  default = []
+}

@@ -19,4 +19,8 @@ module "monitor-dev" {
 
   project_env = "dev"
   project_name = local.project_name
+
+  secrets = [
+    "bot-token"
+  ]
 }
