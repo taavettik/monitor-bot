@@ -39,4 +39,4 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
       - run: terraform init && terraform apply
         env:
-          KUBECONFIG: ${{ secrets.KUBERNETES_CONFIG }}
+          KUBERNETES_MASTER: ${{ secrets.KUBERNETES_CONFIG }}
