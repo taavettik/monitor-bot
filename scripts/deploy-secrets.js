@@ -32,7 +32,7 @@ for (const secret in secrets) {
   const value = process.env[secret];
 
   if (!value) {
-    console.warn(`Warning: value for secret ${secret}`);
+    console.warn(`Warning: value for secret ${secret} not found`);
     continue;
   }
 

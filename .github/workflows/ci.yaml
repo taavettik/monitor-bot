@@ -52,3 +52,5 @@ jobs:
       - run: node scripts/deploy-secrets.js
         env:
           PROJECT_NAMESPACE: monitor-bot-dev
+
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
