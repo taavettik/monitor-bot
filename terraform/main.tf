@@ -25,6 +25,6 @@ module "ingress" {
   paths = [{
     service = "server"
     port = 8080
-    path = "/api"
+    path = "/"
   }]
 }
