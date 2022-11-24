@@ -40,5 +40,6 @@ jobs:
       - run: echo ${KUBERNETES_CONFIG} >/tmp/kubeconfig
         env:
           KUBERNETES_CONFIG: ${{ secrets.KUBERNETES_CONFIG }}
+      - run: head -3 /tmp/kubeconfig
       - run: terraform init
       - run: terraform apply
