@@ -43,7 +43,7 @@ jobs:
           KUBERNETES_CONFIG: ${{ secrets.KUBERNETES_CONFIG }}
       - run: terraform init && terraform apply -auto-approve
 
-  deploy:
+  deploy-secrets:
     runs-on: ubuntu-latest
 
     steps:
