@@ -50,3 +50,5 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
       - run: node scripts/deploy-secrets.js
+        env:
+          PROJECT_NAMESPACE: monitor-bot-dev
