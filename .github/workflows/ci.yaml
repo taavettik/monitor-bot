@@ -37,8 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
-      - run: echo "$KUBERNETES_CONFIG" |base64 >./kubeconfig
+      - run: echo "$KUBERNETES_CONFIG" >./kubeconfig
         env:
-          KUBERNETES_MASTER: ${{ secrets.KUBERNETES_CONFIG }}
-      - run: cat ./kubeconfig
+          KUBERNETES_CONFIG: ${{ secrets.KUBERNETES_CONFIG }}
       - run: terraform init && terraform apply

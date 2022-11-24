@@ -1,11 +1,13 @@
 terraform {
   backend "kubernetes" {
+    config_path = "./kubeconfig"
     secret_suffix    = "monitor-bot"
   }
 }
 
 provider "kubernetes" {
   config_context = "default"
+  config_path = "./kubeconfig"
 }
 
 locals {
