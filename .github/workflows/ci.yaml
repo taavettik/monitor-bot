@@ -49,6 +49,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - run: echo "$KUBERNETES_CONFIG" >./kubeconfig
+        env:
+          KUBERNETES_CONFIG: ${{ secrets.KUBERNETES_CONFIG }}
       - run: node scripts/deploy-secrets.js
         env:
           PROJECT_NAMESPACE: monitor-bot-dev
