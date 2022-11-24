@@ -2,69 +2,29 @@ locals {
   namespace_name = "${var.project_name}-${var.project_env}"
 }
 
-resource "kubernetes_namespace" "example" {
+resource "kubernetes_namespace" "namespace" {
   metadata {
     name = local.namespace_name
   }
 }
 
-resource "kubernetes_deployment" "example" {
-  metadata {
-    name = "terraform-example"
-    namespace = local.namespace_name
-    labels = {
-      test = "MyExampleApp"
-    }
-  }
+module "service" {
+  source = "./service"
 
-  spec {
-    replicas = 1
+  service = "server"
+  project_name = var.project_name
+  project_env = var.project_env
+}
 
-    selector {
-      match_labels = {
-        test = "MyExampleApp"
-      }
-    }
+module "ingress" {
+  source = "./ingress"
 
-    template {
-      metadata {
-        labels = {
-          test = "MyExampleApp"
-        }
-      }
-
-      spec {
-        container {
-          image = "nginx:1.21.6"
-          name  = "example"
-
-          resources {
-            limits = {
-              cpu    = "0.5"
-              memory = "512Mi"
-            }
-            requests = {
-              cpu    = "250m"
-              memory = "50Mi"
-            }
-          }
-
-          liveness_probe {
-            http_get {
-              path = "/"
-              port = 80
-
-              http_header {
-                name  = "X-Custom-Header"
-                value = "Awesome"
-              }
-            }
-
-            initial_delay_seconds = 3
-            period_seconds        = 3
-          }
-        }
-      }
-    }
-  }
+  domain = "monitor.kukkonen.dev"
+  project_name = var.project_name
+  namespace = local.namespace_name
+  paths = [{
+    service = "server"
+    port = 8080
+    path = "/api"
+  }]
 }

@@ -1,3 +1,10 @@
+terraform {
+  backend "kubernetes" {
+    secret_suffix    = "monitor-bot"
+    config_path      = "./kubeconfig"
+  }
+}
+
 provider "kubernetes" {
   config_path    = "./kubeconfig"
   config_context = "default"
@@ -11,12 +18,5 @@ module "monitor-dev" {
   source = "./terraform"
 
   project_env = "dev"
-  project_name = local.project_name
-}
-
-module "monitor-prod" {
-  source = "./terraform"
-
-  project_env = "prod"
   project_name = local.project_name
 }

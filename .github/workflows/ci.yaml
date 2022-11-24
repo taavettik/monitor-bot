@@ -30,3 +30,15 @@ jobs:
           file: ./server/Dockerfile.build
           push: true
           tags: ghcr.io/taavettik/monitor-bot:dev
+
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+      - run: echo ${KUBERNETES_CONFIG} >./kubeconfig
+        env:
+          KUBERNETES_CONFIG: ${{ secrets.KUBERNETES_CONFIG }}
+      - run: terraform init
+      - run: terraform apply
