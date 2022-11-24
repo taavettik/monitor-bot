@@ -41,4 +41,4 @@ jobs:
       - run: echo "$KUBERNETES_CONFIG" >./kubeconfig
         env:
           KUBERNETES_CONFIG: ${{ secrets.KUBERNETES_CONFIG }}
-      - run: terraform init && terraform apply
+      - run: terraform init && terraform apply -auto-approve
