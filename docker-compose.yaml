@@ -10,7 +10,10 @@ services:
       - ./server:/service
     secrets:
       - BOT_TOKEN
+      - RTSP_URL
 
 secrets:
   BOT_TOKEN:
     file: ./secrets/BOT_TOKEN
+  RTSP_URL:
+    file: ./secrets/RTSP_URL

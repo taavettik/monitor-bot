@@ -1,4 +1,6 @@
 import TelegramBot from 'node-telegram-bot-api';
+import fs from 'fs';
+import { fetchImage } from './common/camera';
 import { readSecrets } from './common/config';
 
 const commands: TelegramBot.BotCommand[] = [
@@ -74,7 +76,24 @@ async function handleCallback(
   query: TelegramBot.CallbackQuery,
   data: any,
 ) {
+  const chatId = query.message?.chat.id;
+
+  const secrets = await readSecrets();
+
   if (data.type === 'show') {
-    bot.sendMessage(query.message?.chat.id ?? '', `Showing ${data.data}`);
+    bot.sendMessage(chatId ?? '', `Showing ${data.data}`);
+
+    try {
+      const imagePath = await fetchImage(
+        `${secrets.RTSP_URL}/${cameras.find((c) => c === data.data)}`,
+      );
+
+      const readStream = fs.createReadStream(imagePath);
+
+      bot.sendPhoto(chatId ?? '', readStream);
+    } catch (e) {
+      console.error(e);
+      bot.sendMessage(chatId ?? '', `Something went wrong`);
+    }
   }
 }

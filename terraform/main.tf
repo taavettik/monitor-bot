@@ -17,6 +17,7 @@ module "service" {
 
   secrets = {
     BOT_TOKEN = "bot-token"
+    RTSP_URL = "rtsp-url"
   }
 }
 

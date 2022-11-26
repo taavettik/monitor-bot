@@ -1,4 +1,6 @@
-FROM node:lts-alpine
+FROM node:lts
+
+RUN apt-get update && apt-get install ffmpeg -y
 
 WORKDIR /service
 

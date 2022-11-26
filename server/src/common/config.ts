@@ -17,6 +17,7 @@ async function readSecret(secret: string) {
 
 const secretMap = {
   BOT_TOKEN: true,
+  RTSP_URL: true,
 } as const;
 
 type Secrets = {
