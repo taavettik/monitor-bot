@@ -81,6 +81,10 @@ async function handleCallback(
   const secrets = await readSecrets();
 
   if (data.type === 'show') {
+    if (chatId !== Number(secrets.TG_CHAT_ID)) {
+      return;
+    }
+
     bot.sendMessage(chatId ?? '', `Showing ${data.data}`);
 
     try {

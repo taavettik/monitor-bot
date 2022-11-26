@@ -18,6 +18,7 @@ module "service" {
   secrets = {
     BOT_TOKEN = "bot-token"
     RTSP_URL = "rtsp-url"
+    TG_CHAT_ID = "tg-chat-id"
   }
 }
 

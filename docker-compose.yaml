@@ -11,9 +11,12 @@ services:
     secrets:
       - BOT_TOKEN
       - RTSP_URL
+      - TG_CHAT_ID
 
 secrets:
   BOT_TOKEN:
     file: ./secrets/BOT_TOKEN
   RTSP_URL:
     file: ./secrets/RTSP_URL
+  TG_CHAT_ID:
+    file: ./secrets/TG_CHAT_ID

@@ -18,6 +18,7 @@ async function readSecret(secret: string) {
 const secretMap = {
   BOT_TOKEN: true,
   RTSP_URL: true,
+  TG_CHAT_ID: true,
 } as const;
 
 type Secrets = {
