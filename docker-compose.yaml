@@ -3,6 +3,14 @@ services:
   server:
     build:
       context: ./server
-      dockerfile: Dockerfile.build
+      dockerfile: Dockerfile
     ports:
       - "5690:8080"
+    volumes:
+      - ./server:/service
+    secrets:
+      - BOT_TOKEN
+
+secrets:
+  BOT_TOKEN:
+    file: ./secrets/BOT_TOKEN

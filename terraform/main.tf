@@ -14,6 +14,10 @@ module "service" {
   service = "server"
   project_name = var.project_name
   project_env = var.project_env
+
+  secrets = {
+    BOT_TOKEN = "bot-token"
+  }
 }
 
 module "ingress" {

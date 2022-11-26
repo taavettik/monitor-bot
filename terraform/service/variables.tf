@@ -10,6 +10,10 @@ variable "project_env" {
   type = string
 }
 
+variable "secrets" {
+  type = map(string)
+}
+
 variable "image" {
   type = string
   default = null

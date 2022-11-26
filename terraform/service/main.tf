@@ -28,9 +28,26 @@ resource "kubernetes_deployment" "deployment" {
       }
 
       spec {
+        dynamic "volume" {
+          for_each = var.secrets
+          content {
+            name = volume.value
+            secret {
+              secret_name = volume.value
+            }
+          }
+        }
         container {
           image = coalesce(var.image, "ghcr.io/taavettik/${var.project_name}:${var.project_env}")
           name  = var.service
+
+          dynamic "volume_mount" {
+            for_each = var.secrets
+            content {
+              mount_path = "/run/secrets/${volume_mount.key}"
+              name = volume_mount.value
+            }
+          }
 
           resources {
             limits = {
