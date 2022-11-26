@@ -58,3 +58,5 @@ jobs:
           KUBECONFIG: ./kubeconfig
 
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          RTSP_URL: ${{ secrets.RTSP_URL }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
