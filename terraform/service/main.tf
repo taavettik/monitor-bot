@@ -40,6 +40,7 @@ resource "kubernetes_deployment" "deployment" {
         container {
           image = coalesce(var.image, "ghcr.io/taavettik/${var.project_name}:${var.project_env}")
           name  = var.service
+          image_pull_policy = "always"
 
           dynamic "volume_mount" {
             for_each = var.secrets

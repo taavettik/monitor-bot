@@ -41,6 +41,8 @@ export async function setupBot() {
 
   bot.setMyCommands(commands);
 
+  console.log(`Bot setup successfully`);
+
   return bot;
 }
 
