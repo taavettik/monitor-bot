@@ -42,6 +42,9 @@ jobs:
         env:
           KUBERNETES_CONFIG: ${{ secrets.KUBERNETES_CONFIG }}
       - run: terraform init && terraform apply -auto-approve
+      - run: kubectl rollout restart deployment -n monitor-bot-dev
+        env:
+          KUBECONFIG: ./kubeconfig
 
   deploy-secrets:
     runs-on: ubuntu-latest
