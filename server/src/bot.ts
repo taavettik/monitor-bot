@@ -10,7 +10,12 @@ const commands: TelegramBot.BotCommand[] = [
   },
 ];
 
-const cameras = ['camera1', 'camera2', 'camera3', 'camera4'];
+const cameras = [
+  { id: 'camera1', name: 'Outside' },
+  { id: 'camera2', name: 'Upstairs' },
+  { id: 'camera3', name: 'Fireplace' },
+  { id: 'camera4', name: 'Entrance' },
+];
 
 export async function setupBot() {
   const { BOT_TOKEN } = await readSecrets();
@@ -56,7 +61,7 @@ async function handleCommand(
     if (args.length === 0) {
       const buttons = cameras.map((c) => [
         {
-          text: c,
+          text: c.name,
           callback_data: JSON.stringify({
             type: 'show',
             data: c,
@@ -87,11 +92,11 @@ async function handleCallback(
       return;
     }
 
-    bot.sendMessage(chatId ?? '', `Showing ${data.data}`);
+    bot.sendMessage(chatId ?? '', `Taking photo of ${data.data.name}...`);
 
     try {
       const imagePath = await fetchImage(
-        `${secrets.RTSP_URL}/${cameras.find((c) => c === data.data)}`,
+        `${secrets.RTSP_URL}/${cameras.find((c) => c.id === data.data.id)?.id}`,
       );
 
       const readStream = fs.createReadStream(imagePath);
